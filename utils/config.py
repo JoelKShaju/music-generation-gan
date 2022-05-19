@@ -19,4 +19,6 @@ class Config():
     SAMPLE_INTERVAL = 100  # interval to run the sampler (in step)
     N_SAMPLES = 4
 
+    MEASURE_RESOLUTION = 4 * BEAT_RESOLUTION
+
     DATA_DIR = "/home/joel/cs663/final_project/music-generation-gan/data"
