@@ -1,3 +1,5 @@
+import numpy as np
+
 class Config():
     N_TRACKS = 5  # number of tracks
     N_PITCHES = 72  # number of pitches
@@ -20,5 +22,6 @@ class Config():
     N_SAMPLES = 4
 
     MEASURE_RESOLUTION = 4 * BEAT_RESOLUTION
+    TEMPO_ARRAY = np.full((4 * 4 * MEASURE_RESOLUTION,1),100)
 
     DATA_DIR = "/home/joel/cs663/final_project/music-generation-gan/data"
