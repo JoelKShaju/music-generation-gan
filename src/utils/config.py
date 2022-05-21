@@ -1,6 +1,9 @@
 import numpy as np
 
 class Config():
+    """
+    Support class containing constant variables
+    """
     N_TRACKS = 5  # number of tracks
     N_PITCHES = 72  # number of pitches
     LOWEST_PITCH = 24  # MIDI note number of the lowest pitch
@@ -25,3 +28,6 @@ class Config():
     TEMPO_ARRAY = np.full((4 * 4 * MEASURE_RESOLUTION,1),100)
 
     DATA_DIR = "/home/joel/cs663/final_project/music-generation-gan/data"
+    LPD_PATH = "/lpd_5/lpd_5_cleansed/"
+    AMG_PATH = "/lpd/amg"
+    

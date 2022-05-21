@@ -1,7 +1,0 @@
-main:
-	1. data prep
-	2. data download
-	3. get + save training dataset
-	4. create dataset and dataloader(pytorch)
-	5. models
-	

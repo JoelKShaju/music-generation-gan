@@ -1,13 +1,14 @@
 from copyreg import pickle
 import os
 import numpy as np
-import config
+from utils import config
 import pickle
 import pypianoroll
 from pypianoroll import Multitrack, Track
 
 # Variable to read the constant values
-conf = config.Config
+conf = config.Config()
+
 
 def msd_id_to_dirs(msd_id):
     """Given an MSD ID, generate the path prefix.
