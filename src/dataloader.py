@@ -2,10 +2,11 @@ import os
 from tqdm import tqdm
 import pypianoroll as pr
 import numpy as np
-from utils import msd_id_to_dirs
+from utils import helper 
+from pathlib import Path
 
 # This method is for downloading and extracting the data. 
-# Parameters: data_dir, directory to store the dataset
+# Parameters: config object
 def data_downloader(config):
     
     data_dir = config.DATA_DIR
@@ -23,15 +24,14 @@ def data_downloader(config):
     os.system("tar zxf "+data_dir + "/id_lists_amg.tar.gz -C " + data_dir + "/")
     os.system("tar zxf "+data_dir + "/id_lists_lastfm.tar.gz -C " + data_dir + "/")
 
-
-def data_prep(config, lpd_path, amg_path):
+# Method for extracting data
+def data_prep(config):
 
     data_dir = config.DATA_DIR
     id_list = []
-    dataset_root = data_dir + "/" + lpd_path + "/"
-    amg_full_path = data_dir + "/" + amg_path
-    for path in os.listdir('../dataset/lpd/amg'):
-        filepath = os.path.join("../dataset/lpd/amg",path)
+    dataset_root = Path(data_dir + config.LPD_PATH)
+    for path in os.listdir('../data/amg/'):
+        filepath = os.path.join("../data/amg/",path)
         if os.path.isfile(filepath):
             with open(filepath,'r') as f:
                 id_list.extend([line.strip() for line in f])
@@ -39,7 +39,7 @@ def data_prep(config, lpd_path, amg_path):
     print("Total Tracks : ",len(id_list))
     return dataset_root, id_list
 
-
+# Method to prepare data for training
 def get_train_dataset(config, dataset_root, id_list):
 
     data = []
@@ -54,7 +54,7 @@ def get_train_dataset(config, dataset_root, id_list):
     # Iterate over all the songs in the ID list
     for msd_id in tqdm(id_list):
         # Load the data as pypianoroll.Multitrack instance
-        song_dir = dataset_root / msd_id_to_dirs(msd_id)
+        song_dir = dataset_root / helper.msd_id_to_dirs(msd_id)
         multitrack = pr.load(song_dir / os.listdir(song_dir)[0])
         
         # Binarize the pianorolls
@@ -91,11 +91,9 @@ def get_train_dataset(config, dataset_root, id_list):
     print(f"Successfully collected {len(data)} samples from {len(id_list)} songs")
     
     try:
-        np.save(config.DATA_DIR + "/processed_dataset", train_data)
+        np.save(config.DATA_DIR + "/processed_dataset/Train", train_data)
         print("Processed dataset saved")
     except:
         print("Failed to save the processed dataset")
     
     return train_data
-
-#data_dir = "/home/joel/cs663/final_project/music-generation-gan/data"

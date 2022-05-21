@@ -38,8 +38,8 @@ class Generator(torch.nn.Module):
         self.convtrans1 = GeneratorBlock(256, 128, (1, 4, 1), (1, 4, 1))
         self.convtrans2 = GeneratorBlock(128, 64, (1, 1, 4), (1, 1, 4))
         self.convtrans3 = GeneratorBlock(64, 32, (1, 1, 3), (1, 1, 1))
-        self.convtrans4 = torch.nn.ModuleList([GeneratorBlock(32, 16, (1, 4, 1), (1, 4, 1)) for _ in range(n_tracks)])
-        self.convtrans5 = torch.nn.ModuleList([GeneratorBlock(16, 1, (1, 1, 12), (1, 1, 12)) for _ in range(n_tracks)])
+        self.convtrans4 = torch.nn.ModuleList([GeneratorBlock(32, 16, (1, 4, 1), (1, 4, 1)) for _ in range(conf.N_TRACKS)])
+        self.convtrans5 = torch.nn.ModuleList([GeneratorBlock(16, 1, (1, 1, 12), (1, 1, 12)) for _ in range(conf.N_TRACKS)])
 
 
     """
